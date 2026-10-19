@@ -1,0 +1,13 @@
+/* Google Identity Services One Tap and prompt containers.
+   Only injected into isolated containers (see background.js). */
+#credential_picker_container,
+#credential_picker_iframe,
+.g_id_signin,
+iframe[src*="accounts.google.com/gsi/"],
+iframe[src*="accounts.google.com/o/fedcm/"],
+iframe[src*="accounts.google.com/signin/"],
+div[id^="credential_picker"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
