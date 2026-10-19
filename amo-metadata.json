@@ -1,0 +1,19 @@
+{
+  "categories": ["privacy-security"],
+  "summary": {
+    "en-US": "Open any page or link in its own throwaway container: no cookies, no logins, nothing carried over. The container is deleted when you close the tab."
+  },
+  "description": {
+    "en-US": "Isolate gives each isolated tab its own brand-new Firefox container, so it starts with no cookies, no logins and no site storage from your other tabs or earlier sessions. When the last tab in a container closes, its cookies, local storage, IndexedDB and service workers are wiped and the container is deleted.\n\nHow to use:\n- Click the toolbar button (or press Ctrl+Alt+I) to reopen the current page in a new isolated tab.\n- Right-click a link and choose \"Open Link in Isolated Tab\".\n- Isolated tabs show an ISO badge on the toolbar button.\n\nIsolated tabs also block Google \"Sign in with Google\" One Tap prompts.\n\nNotes:\n- Desktop Firefox only. Containers are not available in private windows, so isolated tabs open in a normal window.\n- Isolate collects no data and makes no network requests of its own.\n\nSource code: https://github.com/shad0wcrawl3r/isolate"
+  },
+  "homepage": {
+    "en-US": "https://github.com/shad0wcrawl3r/isolate"
+  },
+  "support_url": {
+    "en-US": "https://github.com/shad0wcrawl3r/isolate/issues"
+  },
+  "version": {
+    "license": "MIT",
+    "approval_notes": "No build step; the submitted files are the source. Permissions: contextualIdentities/cookies to create a fresh container per isolated tab; browsingData to wipe a container's data when its last tab closes; webRequest/webRequestBlocking with <all_urls> to cancel accounts.google.com/gsi requests inside isolated containers only, and to register a CSS-only content script (suppress.css) scoped to those containers; contextMenus for the link menu item; storage to remember which containers to clean up after a restart."
+  }
+}

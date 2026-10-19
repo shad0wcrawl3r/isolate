@@ -1,20 +1,25 @@
 {
   "manifest_version": 2,
   "name": "Isolate",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Open links in a fresh, throwaway Firefox container per tab and suppress Google sign-in prompts.",
+  "homepage_url": "https://github.com/shad0wcrawl3r/isolate",
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
   "permissions": [
     "browsingData",
     "contextMenus",
     "contextualIdentities",
     "cookies",
     "storage",
-    "tabs",
     "webRequest",
     "webRequestBlocking",
     "<all_urls>"
   ],
   "browser_action": {
+    "default_icon": "icons/icon.svg",
     "default_title": "Reopen this page in an isolated tab"
   },
   "commands": {
@@ -35,7 +40,9 @@
       "id": "isolate@shadowcrawler",
       "strict_min_version": "115.0",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   }

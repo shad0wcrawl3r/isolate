@@ -1,38 +1,69 @@
 # Isolate
 
-Firefox extension that opens pages in a fresh, throwaway container per tab,
-so each isolated tab starts with no cookies or logins. A container and its
-data are deleted when its last tab closes. Google One Tap sign-in prompts are
-blocked inside isolated tabs.
+A Firefox extension that opens pages in their own throwaway container, so an
+isolated tab starts with no cookies, no logins and no site storage from your
+other tabs or earlier sessions.
 
-- **Toolbar button / Ctrl+Alt+I**: reopen the current page in a new isolated tab.
-- **Right-click a link → Open Link in Isolated Tab.**
-- Isolated tabs show an `ISO` badge.
+## Features
 
-Desktop Firefox only (Android has no containers). Containers cannot be used
-in private windows, so isolated tabs always open in a normal window.
+- **One container per isolated tab.** Every isolated tab gets a brand-new
+  container. Open as many as you like; none of them share anything.
+- **Cleaned up automatically.** When the last tab in a container closes, its
+  cookies, local storage, IndexedDB and service workers are wiped and the
+  container is deleted.
+- **No Google One Tap.** "Sign in with Google" prompts are blocked inside
+  isolated tabs.
+- **No data collection.** The extension makes no network requests of its own.
+
+## Usage
+
+| Action | What it does |
+| --- | --- |
+| Toolbar button or <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> | Reopen the current page in a new isolated tab |
+| Right-click a link → **Open Link in Isolated Tab** | Open the link in a new isolated tab |
+
+Isolated tabs show an **ISO** badge on the toolbar button and the container
+name ("Isolated xxxx") in the address bar. Links opened from an isolated tab
+stay in its container. You can change the shortcut in `about:addons` → gear
+→ *Manage Extension Shortcuts*.
+
+## Limitations
+
+- Desktop Firefox only. Firefox for Android has no containers.
+- Containers can't be used in private windows, so isolated tabs opened from a
+  private window open in a normal window.
+- Isolation covers cookies and site storage. Your IP address, browser
+  fingerprint and normal browsing history are not affected.
+
+## Development
+
+Load `manifest.json` from `about:debugging#/runtime/this-firefox` →
+*Load Temporary Add-on*. Click *Inspect* for the extension's console, and
+enable the *Debug* level to see `[isolate]` log lines.
 
 ## Releasing
 
-Signed as an **unlisted** add-on on AMO (private, not in the public store).
+Pushing a tag that matches the `version` in `manifest.json` runs
+`.github/workflows/release.yml`, which lints the extension, submits it to
+addons.mozilla.org and creates a GitHub release:
 
-One-time setup: create AMO API credentials at
-<https://addons.mozilla.org/developers/addon/api/key/> and add them as
-repository secrets `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`.
+```sh
+git tag v1.5.0
+git push origin main v1.5.0
+```
 
-To release:
+The workflow needs AMO API credentials
+(<https://addons.mozilla.org/developers/addon/api/key/>) stored as the
+repository secrets `AMO_JWT_ISSUER` and `AMO_JWT_SECRET`. AMO rejects a
+version number it has already received, so bump `version` before each release.
 
-1. Bump `version` in `manifest.json` (AMO rejects a version it has already signed).
-2. Commit, then tag and push:
-   ```
-   git tag v1.4.0
-   git push origin main v1.4.0
-   ```
-3. The workflow signs the extension and attaches the `.xpi` to a GitHub release.
-   Install it via `about:addons` → gear → *Install Add-on From File*.
+## Built with AI
 
-## Local development
+This project was written with the help of an AI coding assistant
+(Claude, by Anthropic), including the extension code, the release workflow
+and this README. The author directed the work and tested every change by hand
+in Firefox.
 
-Load `manifest.json` from `about:debugging#/runtime/this-firefox` →
-*Load Temporary Add-on*. Debug output is in the extension's *Inspect* console
-(enable the *Debug* level for `[isolate]` lines).
+## License
+
+[MIT](LICENSE)
